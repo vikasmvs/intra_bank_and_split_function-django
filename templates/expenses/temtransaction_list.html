@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div class='alpha'>
+  <h2>Split Transactions List</h2>
+  <p>Welcome, {{ user.first_name }} {{ user.last_name }}!</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Split Id</th>
+        <th>Splitted by</th>
+        <th>Recipient</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Splitted amount to pay</th>
+        <th>Status</th>
+        <!-- <th>Action</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      {% for transaction in transactions %}
+        <tr>
+          <td>{{ transaction.temp_transaction_id }}</td>
+          <td>{{ transaction.id }}</td>
+          <td>{{ transaction.payer.first_name }} {{ transaction.payer.last_name }} @{{ transaction.payer.username }}</td>
+          <td>{{ transaction.recipient.first_name }} {{ transaction.recipient.last_name }} @{{ transaction.recipient.username }}</td>
+          <td>{{ transaction.description }}</td>
+          <td>{{ transaction.date }}</td>
+          <td>{{ transaction.amount }}</td>
+          <td>{{ transaction.status }}</td>
+          <!-- <td>
+            <a href="{% url 'temtransaction_approve' transaction.id %}" class="btn btn-sm btn-primary">Approve</a>
+            <a>&nbsp;|&nbsp;</a>
+            <a href="{% url 'temtransaction_deny' transaction.id %}" class="btn btn-sm btn-danger">Deny</a>
+          </td> -->
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6">No transactions to display.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <hr>
+  <a href="{% url 'create_transaction' %}" class="btn btn-success">Create Transaction</a>
+  <a>&nbsp;|&nbsp;</a>
+  <a href="{% url 'customer_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+{% endblock %}

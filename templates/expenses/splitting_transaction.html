@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<html lang="en">
+<head>
+    <!-- Head content here -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const addPayerButton = document.getElementById("add-payer");
+        const payersGroup = document.getElementById("payers-group");
+        const payerSelect = document.getElementById("payer");
+        const splitTransactions = document.getElementById("split-transactions");
+        const recipientSelect = document.getElementById("recipient");
+    
+        addPayerButton.addEventListener("click", function () {
+          if (payerSelect.value) {
+            const payerName = payerSelect.options[payerSelect.selectedIndex].text;
+            const payerId = payerSelect.value;
+    
+            // Create a new input element for the selected payer
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "payers";
+            input.value = payerId;
+    
+            // Add the payer name to the display
+            const payerDisplay = document.createElement("span");
+            payerDisplay.textContent = payerName;
+    
+            // Add a remove button
+            const removeButton = document.createElement("button");
+            removeButton.textContent = "Remove";
+            removeButton.type = "button";
+            removeButton.addEventListener("click", function () {
+              payerDisplay.remove();
+              input.remove();
+              removeButton.remove();
+    
+              // Re-add the removed payer value back to the payer dropdown
+              const option = document.createElement("option");
+              option.value = payerId;
+              option.text = payerName;
+              payerSelect.appendChild(option);
+            });
+    
+            // Append elements to the split transactions section
+            splitTransactions.appendChild(payerDisplay);
+            splitTransactions.appendChild(input);
+            splitTransactions.appendChild(removeButton);
+    
+            // Remove the selected payer from the dropdown
+            payerSelect.remove(payerSelect.selectedIndex);
+          }
+        });
+    
+        recipientSelect.addEventListener("change", function () {
+          const selectedRecipient = recipientSelect.options[recipientSelect.selectedIndex].value;
+          const payerOptions = payerSelect.options;
+          for (let i = 0; i < payerOptions.length; i++) {
+            if (payerOptions[i].value === selectedRecipient) {
+              payerOptions[i].remove();
+              break;
+            }
+          }
+        });
+      });
+    </script>
+</head>
+<body>
+<div class='alpha'>
+  <h2>Splitting Transfer</h2>
+  <form method="post">
+    {% csrf_token %}
+    <!-- Recipient field -->
+    <div class="form-group">
+      <label for="recipient">Recipient:</label>
+      <select name="recipient" id="recipient">
+        <option value="">Select a recipient</option>
+        {% for user in users %}
+        <option value="{{ user.id }}">{{ user.username }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Payers field -->
+    <div class="form-group" id="payers-group">
+      <label for="payer">Payers:</label>
+      <select name="payer" id="payer">
+        <option value="">Select a payer</option>
+        {% for user in users %}
+        <option value="{{ user.id }}">{{ user.username }}</option>
+        {% endfor %}
+      </select>
+      <button type="button" id="add-payer">Add payer</button>
+    </div>
+
+    <!-- Amount field -->
+    <div class="form-group">
+      <label for="amount">Amount:</label>
+      <input type="number" name="amount" id="amount">
+    </div>
+
+    <!-- Description field -->
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea name="description" id="description"></textarea>
+    </div>
+
+    <!-- Split transactions -->
+    <div id="split-transactions">
+      <!-- Split transactions will be displayed here -->
+    </div>
+    
+    <input type="hidden" name="payers" value="{{ current_user_id }}">
+    <button type="submit">Create Split Transaction</button>
+  </form>
+  <a href="{% url 'balance_list' %}">Cancel</a>
+</div>
+</body>
+</html>
+
+{% endblock %}

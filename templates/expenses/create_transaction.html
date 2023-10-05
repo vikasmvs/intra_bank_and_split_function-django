@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Splitwise-Like App</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+<div>
+  <h2>Create Transaction</h2>
+  <form method="post">
+    {% csrf_token %}
+    <h3>
+      <tr>
+        <td>{{ balances.user.username }}</td>
+      </tr>
+    </h3>
+    <h3>Balance
+      <tr>
+        <td>{{ balances.balance }}</td>
+      </tr>
+    </h3>
+    {{ form.as_p }}
+    <button type="submit">Create Transaction</button>
+  </form>
+  <a href="{% url 'balance_list' %}">Cancel</a>
+</div>
+{% endblock %}
+</body>
+</html>

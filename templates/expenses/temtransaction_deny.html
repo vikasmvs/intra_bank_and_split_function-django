@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>test</h2>
+<h1>transaction_deny</h1>
+  <h2>Deny Transaction</h2>
+  <p>Are you sure you want to Deny this transaction?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Deny request</button>
+    <a href="{% url 'Split_Transactions_List' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+{% endblock %}

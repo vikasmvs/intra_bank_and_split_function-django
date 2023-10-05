@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Transaction Created</h2>
+  <p>Your transaction has been created successfully.</p>
+  <dl>
+    <dt>Description:</dt>
+    <dd>{{ transaction.description }}</dd>
+    <dt>Amount:</dt>
+    <dd>{{ transaction.amount }}</dd>
+    <dt>Payer:</dt>
+    <dd>{{ transaction.payer }}</dd>
+    <dt>Recipient:</dt>
+    <dd>{{ transaction.recipient }}</dd>
+    <dt>Date:</dt>
+    <dd>{{ transaction.date }}</dd>
+  </dl>
+  <a href="{% url 'balance_list' %}">View Balances</a>
+{% endblock %}

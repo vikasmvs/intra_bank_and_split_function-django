@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="alpha" >
+  <h2>Customer Dashboard</h2>
+  <p>Welcome, {{ user.username }}!</p>
+  <div class="card mb-3">
+    <form methos="post">
+    <div class="card-header">
+      Your Transactions
+    </div>
+    <div class="card-body"><br>
+      <h2>Pending for your decision</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Payed by</th>
+            <th>Splitted to</th>
+            <th>Recipient</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for transaction in pending_transactions %}
+            <tr>
+              <td>{{ transaction.temp_transaction_id }}</td>
+              <td>{{ transaction.description }}</td>
+              <td>{{ transaction.amount }}</td>
+              <td>{{ transaction.payer.username }}</td>
+              <td>{{ transaction.payers }}</td>
+              <td>{{ transaction.recipient.username }}</td>
+              <td>{{ transaction.date }}</td>
+              <td>{{ transaction.status }}</td>
+              <td>
+                <a href="{% url 'temtransaction_approve' transaction.id %}" class="btn btn-sm btn-primary">Approve</a><br>
+                <a href="{% url 'temtransaction_deny' transaction.id %}" class="btn btn-sm btn-danger">Deny</a>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5">No transactions to display.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table><br>
+      <h2>You Denyed !</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Payed by</th>
+            <th>Splitted to</th>
+            <th>Recipient</th>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for transaction in deny_transactions %}
+          <tr>
+            <td>{{ transaction.temp_transaction_id }}</td>
+            <td>{{ transaction.description }}</td>
+            <td>{{ transaction.amount }}</td>
+            <td>{{ transaction.payer.username }}</td>
+            <td>{{ transaction.payers }}</td>
+            <td>{{ transaction.recipient.username }}</td>
+            <td>{{ transaction.date }}</td>
+            <td>{{ transaction.status }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5">No transactions to display.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      </table><br>
+      <h2>You Approved !</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Payed by</th>
+            <th>Splitted to</th>
+            <th>Recipient</th>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for transaction in approved_transactions %}
+          <tr>
+            <td>{{ transaction.temp_transaction_id }}</td>
+            <td>{{ transaction.description }}</td>
+            <td>{{ transaction.amount }}</td>
+            <td>{{ transaction.payer.username }}</td>
+            <td>{{ transaction.payers }}</td>
+            <td>{{ transaction.recipient.username }}</td>
+            <td>{{ transaction.date }}</td>
+            <td>{{ transaction.status }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5">No transactions to display.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      </table>      
+      <button type="submit">Reload</button>
+    </div>
+  </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splitwise</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <dt class="user-info"><span>Username: {{ user.username }}</span></dt>
+                {% if user_balance %}
+                <dt class="user-info"><span>Balance: {{ user_balance.balance }}</span></dt>
+                {% endif %}
+                <la></la><a href="{% url 'customer_dashboard' %}">Customer Dashboard</a>
+                    <a>|&nbsp;</a><a href="{% url 'transaction_list' %}">Main Transaction List</a>
+                    <a>|&nbsp;</a><a href="{% url 'balance_list' %}">Balance List</a>
+                    <a>|&nbsp;</a><a href="{% url 'create_transaction' %}">Money Transfer</a>
+                    <a>|&nbsp;</a><a href="{% url 'splitting_transaction' %}">Splitting Transfer</a>
+                    <a>|&nbsp;</a><a href="{% url 'Split_Transactions_List' %}">Split Transactions List</a>
+                    <a>|&nbsp;</a><a href="{% url 'logout' %}">Logout</a></la>
+                <hr>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+    </footer>
+</body>
+</html>
+<style>
+    table, th, td {
+      border: 1px solid black;
+    }
+</style>

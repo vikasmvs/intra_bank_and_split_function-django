@@ -1,0 +1,71 @@
+/* Reset some default styles */
+body, p, h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style for the header */
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Style for navigation menu */
+.navbar {
+    background-color: #555;
+    color: #fff;
+    padding: 10px;
+}
+
+/* Style for links in the navigation menu */
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+/* Style for the main content */
+.content {
+    padding: 20px;
+}
+
+/* Style for buttons */
+.button {
+    background-color: #0074D9;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Style for forms */
+.form {
+    margin: 20px;
+    padding: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .navbar {
+        display: none;
+    }
+
+    .navbar.active {
+        display: block;
+    }
+}
+
+
+/* Align user info to the right */
+.user-info {
+    float: right;
+    margin-right: 200px; /* Adjust the margin as needed */
+}
+
+/* Align user info to the left */
+.alpha {
+    margin-left: 40px; /* Adjust the margin as needed */
+}
+

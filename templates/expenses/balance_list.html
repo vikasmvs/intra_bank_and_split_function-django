@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="alpha">
+  <h2>Balance</h2>
+  <table class="table">
+    <tbody>
+      {% for balance in balances %}
+        <tr>
+          <tc>Username : {{ balance.user.first_name }} {{ balance.user.last_name }}</tc><br>
+          <tc>bal : {{ balance.balance }}</tc>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="2">No balances to display.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'customer_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+{% endblock %}

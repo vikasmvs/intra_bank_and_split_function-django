@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Edit Transaction</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update Transaction</button>
+  </form>
+  <a href="{% url 'balance_list' %}">Cancel</a>
+{% endblock %}
